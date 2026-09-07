@@ -1,1 +1,927 @@
 # ClinicaMedica.github.io
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Centro Integral de Investigación Médica. Excelencia clínica, diagnóstico avanzado y atención humana en cardiología, neurología, oncología y más.">
+  <meta name="theme-color" content="#073b4c">
+  
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Centro Integral de Investigación Médica">
+  <meta property="og:description" content="Excelencia clínica y atención humana con los más altos estándares de investigación médica.">
+  <meta property="og:image" content="https://tu-dominio.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>Centro Integral de Investigación Médica</title>
+  <link rel="canonical" href="https://tu-dominio.com/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+
+  <!-- Preconnect para rendimiento -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+
+  <!-- Tailwind CDN (para prototipo; en producción usa build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Google Fonts con font-display=swap -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#073b4c',
+            'ink-2': '#0b5264',
+            mint: '#20b49b',
+            'mint-light': '#dff5f0',
+            paper: '#f8fbfa',
+            line: '#cfe3df',
+            gold: '#f6c667',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Work Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --color-ink: #073b4c;
+      --color-mint: #20b49b;
+      --color-gold: #f6c667;
+      --focus-ring: 0 0 0 3px var(--color-gold);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Work Sans', sans-serif;
+      color: #24434d;
+      background-color: #f8fbfa;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+
+    /* Skip to content para accesibilidad */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-ink);
+      color: white;
+      padding: 8px 16px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* Focus visible consistente */
+    :focus-visible {
+      outline: 3px solid var(--color-gold);
+      outline-offset: 4px;
+    }
+
+    /* Utilidades de animación */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-1 { transition-delay: 0.12s; }
+    .delay-2 { transition-delay: 0.24s; }
+    .delay-3 { transition-delay: 0.36s; }
+
+    /* Hero */
+    .hero-shade {
+      background: linear-gradient(90deg, rgba(4,45,59,0.98) 2%, rgba(5,59,76,0.91) 45%, rgba(5,59,76,0.45) 72%, rgba(5,59,76,0.14) 100%);
+    }
+
+    /* Tarjetas interactivas */
+    .hover-card {
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+    .hover-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 44px rgba(7,59,76,0.12);
+      border-color: #7bd2c3;
+    }
+
+    /* Iconos de especialidad */
+    .specialty-icon {
+      transition: transform 0.28s ease, background 0.28s ease, color 0.28s ease;
+    }
+    .hover-card:hover .specialty-icon {
+      transform: rotate(-7deg) scale(1.08);
+      background-color: var(--color-mint);
+      color: white;
+    }
+
+    /* Botones de filtro */
+    .filter-btn {
+      transition: all 0.2s ease;
+    }
+    .filter-btn.active {
+      background-color: var(--color-ink);
+      color: #fff;
+      border-color: var(--color-ink);
+      box-shadow: 0 6px 16px rgba(7,59,76,0.18);
+    }
+
+    /* Mapa */
+    .map-pattern {
+      background-color: #d9f0eb;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Back to top */
+    .back-top {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+    .back-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Detalles nativos para FAQ (reemplaza JS complejo) */
+    details.faq-item {
+      border: 1px solid #d5e5e5;
+      border-radius: 1rem;
+      background: white;
+      overflow: hidden;
+    }
+    details.faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--color-ink);
+      transition: transform 0.22s ease, color 0.22s ease;
+      flex-shrink: 0;
+    }
+    details.faq-item[open] summary::after {
+      content: '×';
+      transform: rotate(0deg);
+      color: var(--color-mint);
+    }
+    details.faq-item .faq-content {
+      padding: 0 1.25rem 1.25rem;
+      color: #475569;
+      line-height: 1.625;
+      font-size: 0.875rem;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Mobile menu */
+    @media (max-width: 1023px) {
+      .desktop-links { display: none; }
+    }
+    @media (min-width: 1024px) {
+      .mobile-trigger, .mobile-menu { display: none !important; }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <div class="app-wrapper min-h-screen overflow-hidden bg-paper">
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-md">
+      <nav aria-label="Navegación principal" class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+        
+        <!-- Brand -->
+        <a href="#inicio" class="focus-ring flex items-center gap-3 rounded-xl text-left no-underline text-ink">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-ink text-white shadow-lg shadow-ink/20" aria-hidden="true">
+            <i data-lucide="cross" width="20"></i>
+          </span>
+          <span class="flex flex-col">
+            <strong class="block text-sm font-bold leading-none">Centro Médico</strong>
+            <span class="mt-1 block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Investigación & Salud</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="desktop-links flex items-center gap-6">
+          <a href="#nosotros" class="nav-link focus-ring rounded text-sm font-bold tracking-wide text-slate-600 hover:text-ink">Nosotros</a>
+          <a href="#especialidades" class="nav-link focus-ring rounded text-sm font-bold tracking-wide text-slate-600 hover:text-ink">Especialidades</a>
+          <a href="#equipo" class="nav-link focus-ring rounded text-sm font-bold tracking-wide text-slate-600 hover:text-ink">Equipo</a>
+          <a href="#conocimiento" class="nav-link focus-ring rounded text-sm font-bold tracking-wide text-slate-600 hover:text-ink">Conocimiento</a>
+          <a href="#contacto" class="focus-ring inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-ink/20 hover:bg-ink-2 transition-colors">
+            Agendar cita
+          </a>
+        </div>
+
+        <!-- Mobile Trigger -->
+        <button type="button" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-menu" class="mobile-trigger focus-ring rounded-lg p-2 text-ink lg:hidden">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu hidden border-t border-line bg-white px-5 py-4 lg:hidden">
+        <div class="grid gap-4">
+          <a href="#inicio" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Inicio</a>
+          <a href="#nosotros" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Nosotros</a>
+          <a href="#especialidades" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Especialidades</a>
+          <a href="#equipo" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Equipo</a>
+          <a href="#conocimiento" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Conocimiento clínico</a>
+          <a href="#contacto" class="nav-link block w-fit text-left text-sm font-bold text-slate-600 hover:text-ink">Contacto y citas</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      
+      <!-- View: Home -->
+      <div id="home-view">
+        
+        <!-- Hero -->
+        <section id="inicio" class="relative min-h-[650px] overflow-hidden bg-ink" aria-labelledby="hero-title">
+          <img 
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80" 
+            alt="Equipo médico en quirófano realizando cirugía con tecnología avanzada" 
+            class="absolute inset-0 h-full w-full object-cover object-center"
+            width="1920" height="1080"
+            fetchpriority="high"
+          >
+          <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
+          
+          <div class="relative mx-auto flex min-h-[650px] max-w-7xl items-center px-6 py-24">
+            <div class="max-w-3xl text-white">
+              <p class="reveal eyebrow text-xs font-bold uppercase tracking-[0.18em] text-[#8ee1d3]">Investigación · Diagnóstico · Tratamiento</p>
+              <h1 id="hero-title" class="reveal delay-1 mt-5 max-w-3xl text-4xl font-bold leading-[1.02] md:text-5xl lg:text-6xl">
+                Ciencia y empatía para tu salud
+              </h1>
+              <p class="reveal delay-2 mt-7 max-w-2xl text-lg leading-relaxed text-slate-100">
+                Unimos la excelencia clínica con los más altos estándares de investigación médica. Tu bienestar es nuestro protocolo.
+              </p>
+              <div class="reveal delay-3 mt-10 flex flex-wrap gap-4">
+                <a href="#contacto" class="focus-ring inline-flex items-center gap-2 rounded-full bg-mint px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-black/20 hover:bg-[#1a9e87] transition-colors">
+                  <i data-lucide="calendar-plus" width="18" aria-hidden="true"></i>
+                  Reservar cita
+                </a>
+                <a href="#conocimiento" class="focus-ring inline-flex items-center gap-2 rounded-full border border-white/50 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10 transition-colors">
+                  <i data-lucide="book-open" width="18" aria-hidden="true"></i>
+                  Conocimiento clínico
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Métricas (usando <dl> para semántica de datos) -->
+        <section class="relative z-10 mx-auto -mt-11 grid max-w-6xl grid-cols-1 overflow-hidden rounded-2xl border border-white/60 bg-white/90 shadow-2xl shadow-ink/15 backdrop-blur-sm md:grid-cols-3" aria-label="Estadísticas del centro">
+          <dl class="glass-stat border-b border-line px-8 py-7 md:border-b-0 md:border-r">
+            <dt class="text-3xl font-bold text-ink">+25</dt>
+            <dd class="mt-1 text-sm text-slate-600">Años de trayectoria investigativa</dd>
+          </dl>
+          <dl class="glass-stat border-b border-line px-8 py-7 md:border-b-0 md:border-r">
+            <dt class="text-3xl font-bold text-ink">98%</dt>
+            <dd class="mt-1 text-sm text-slate-600">Tasa de satisfacción paciente</dd>
+          </dl>
+          <dl class="glass-stat px-8 py-7">
+            <dt class="text-3xl font-bold text-ink">+50</dt>
+            <dd class="mt-1 text-sm text-slate-600">Especialistas certificados</dd>
+          </dl>
+        </section>
+
+        <!-- Nosotros -->
+        <section id="nosotros" class="mx-auto max-w-7xl px-6 py-24" aria-labelledby="about-title">
+          <div class="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            <div class="reveal">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Sobre nosotros</p>
+              <h2 id="about-title" class="mt-4 max-w-md text-3xl font-bold leading-tight text-ink md:text-4xl">
+                Comprometidos con la vida y la evidencia científica
+              </h2>
+            </div>
+            <div class="reveal delay-1">
+              <p class="max-w-3xl text-lg leading-relaxed text-slate-600">
+                Somos un centro médico integral donde la práctica clínica y la investigación biomédica convergen. Cada diagnóstico se sustenta en los últimos avances científicos y en un enfoque humano centrado en el paciente.
+              </p>
+              <div class="mt-10 grid gap-4 sm:grid-cols-3">
+                <article class="rounded-2xl border border-line bg-white p-6 shadow-sm">
+                  <i data-lucide="target" class="mb-4 text-mint" aria-hidden="true"></i>
+                  <h3 class="font-bold text-ink">Misión</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-600">Restaurar y preservar la salud mediante medicina basada en evidencia e innovación continua.</p>
+                </article>
+                <article class="rounded-2xl border border-line bg-white p-6 shadow-sm">
+                  <i data-lucide="scan-eye" class="mb-4 text-mint" aria-hidden="true"></i>
+                  <h3 class="font-bold text-ink">Visión</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-600">Ser referentes latinoamericanos en investigación médica aplicada y atención de alta complejidad.</p>
+                </article>
+                <article class="rounded-2xl border border-line bg-white p-6 shadow-sm">
+                  <i data-lucide="shield-check" class="mb-4 text-mint" aria-hidden="true"></i>
+                  <h3 class="font-bold text-ink">Calidad</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-600">Certificaciones internacionales y protocolos de seguridad del paciente en cada proceso.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Especialidades -->
+        <section id="especialidades" class="bg-[#eef8f7] px-6 py-24" aria-labelledby="specialty-title">
+          <div class="mx-auto max-w-7xl">
+            <div class="reveal">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Áreas de práctica</p>
+              <h2 id="specialty-title" class="mt-4 max-w-3xl text-3xl font-bold leading-tight text-ink md:text-4xl">
+                Especialidades médicas de alto rendimiento
+              </h2>
+            </div>
+
+            <!-- Filtros -->
+            <div class="reveal delay-1 mt-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar especialidades">
+              <button class="filter-btn active focus-ring rounded-full border border-[#bcd7d4] bg-white px-4 py-2 text-sm font-semibold" data-filter="all" type="button">Todas</button>
+              <button class="filter-btn focus-ring rounded-full border border-[#bcd7d4] bg-white px-4 py-2 text-sm font-semibold" data-filter="cardio" type="button">Cardiometabólica</button>
+              <button class="filter-btn focus-ring rounded-full border border-[#bcd7d4] bg-white px-4 py-2 text-sm font-semibold" data-filter="neuro" type="button">Neurociencias</button>
+              <button class="filter-btn focus-ring rounded-full border border-[#bcd7d4] bg-white px-4 py-2 text-sm font-semibold" data-filter="integral" type="button">Atención integral</button>
+            </div>
+
+            <!-- Grid -->
+            <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3" id="specialties-grid">
+              <article data-category="cardio" class="hover-card specialty-card reveal rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="heart-pulse"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Cardiología</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Prevención, diagnóstico no invasivo y tratamiento de enfermedades cardiovasculares con tecnología de imagen de última generación.</p>
+              </article>
+
+              <article data-category="neuro" class="hover-card specialty-card reveal delay-1 rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="brain"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Neurología</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Abordaje integral del sistema nervioso central y periférico, desde trastornos del movimiento hasta neuroinmunología.</p>
+              </article>
+
+              <article data-category="integral" class="hover-card specialty-card reveal delay-2 rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="microscope"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Oncología</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Medicina oncológica personalizada, inmunoterapia y protocolos de investigación clínica en cáncer sólido y hematológico.</p>
+              </article>
+
+              <article data-category="integral" class="hover-card specialty-card reveal rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="baby"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Pediatría</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Atención infantil desde el nacimiento hasta la adolescencia, con enfoque en medicina preventiva y desarrollo saludable.</p>
+              </article>
+
+              <article data-category="integral" class="hover-card specialty-card reveal delay-1 rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="bone"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Traumatología</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Cirugía ortopédica y reparación de tejidos. Rehabilitación funcional y manejo del dolor musculoesquelético.</p>
+              </article>
+
+              <article data-category="cardio" class="hover-card specialty-card reveal delay-2 rounded-2xl border border-line bg-white p-7">
+                <span class="specialty-icon flex h-12 w-12 items-center justify-center rounded-xl bg-mint-light text-mint" aria-hidden="true">
+                  <i data-lucide="activity"></i>
+                </span>
+                <h3 class="mt-6 font-bold text-ink">Endocrinología</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Manejo de diabetes, trastornos tiroideos y metabólicos con monitoreo digital y educación al paciente.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Equipo -->
+        <section id="equipo" class="mx-auto max-w-7xl px-6 py-24" aria-labelledby="team-title">
+          <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+            <div>
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Nuestro equipo</p>
+              <h2 id="team-title" class="mt-4 max-w-2xl text-3xl font-bold leading-tight text-ink md:text-4xl">
+                Médicos investigadores líderes en sus campos
+              </h2>
+            </div>
+            <p class="max-w-sm text-sm leading-relaxed text-slate-600">
+              Profesionales con formación en las mejores instituciones del mundo, dedicados a la práctica basada en evidencia.
+            </p>
+          </div>
+
+          <div class="mt-10 grid gap-6 md:grid-cols-3">
+            <article class="hover-card doctor-card overflow-hidden rounded-2xl border border-line bg-white">
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80" alt="Dr. Carlos Mendoza, especialista en cardiología intervencionista" class="h-64 w-full object-cover" width="600" height="400" loading="lazy">
+              <div class="p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Cardiología</p>
+                <h3 class="mt-3 font-bold text-ink">Dr. Carlos Mendoza</h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">Jefe de Cardiología. PhD en Ciencias Cardiovasculares por la Universidad de Barcelona. 20 años de experiencia en hemodinamia.</p>
+              </div>
+            </article>
+
+            <article class="hover-card doctor-card reveal delay-1 overflow-hidden rounded-2xl border border-line bg-white">
+              <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=600&q=80" alt="Dra. Ana Lucero, neuróloga y directora de investigación" class="h-64 w-full object-cover" width="600" height="400" loading="lazy">
+              <div class="p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Neurociencias</p>
+                <h3 class="mt-3 font-bold text-ink">Dra. Ana Lucero</h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">Directora de Investigación Neurológica. Fellow en Johns Hopkins. Especialista en trastornos del movimiento y neurogenética.</p>
+              </div>
+            </article>
+
+            <article class="hover-card doctor-card reveal delay-2 overflow-hidden rounded-2xl border border-line bg-white">
+              <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80" alt="Dr. Javier Ríos, oncólogo clínico" class="h-64 w-full object-cover" width="600" height="400" loading="lazy">
+              <div class="p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Oncología</p>
+                <h3 class="mt-3 font-bold text-ink">Dr. Javier Ríos</h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">Oncólogo médico. Líder en ensayos clínicos de inmunoterapia. Publicaciones en Nature Medicine y The Lancet Oncology.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Servicios -->
+        <section id="servicios" class="bg-ink px-6 py-24 text-white" aria-labelledby="service-title">
+          <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+            <div class="reveal">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-[#8ee1d3]">Diagnóstico avanzado</p>
+              <h2 id="service-title" class="mt-4 max-w-xl text-3xl font-bold leading-tight md:text-4xl">
+                Tecnología de punta al servicio de tu diagnóstico
+              </h2>
+              <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-200">
+                Nuestro centro integra laboratorio de alta complejidad y unidad de imagen molecular para resultados precisos en tiempo récord.
+              </p>
+              <div class="mt-9 grid gap-4 sm:grid-cols-2">
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <i data-lucide="flask-conical" class="text-[#8ee1d3]" aria-hidden="true"></i>
+                  <h3 class="mt-5 font-bold">Laboratorio Central</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-200">Biología molecular, genómica clínica y perfil metabólico avanzado con automatización robotizada.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <i data-lucide="scan-line" class="text-[#8ee1d3]" aria-hidden="true"></i>
+                  <h3 class="mt-5 font-bold">Imagen Diagnóstica</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-200">Resonancia magnética 3T, tomografía computarizada multicorte y PET-CT para diagnóstico oncológico temprano.</p>
+                </article>
+              </div>
+            </div>
+            <div class="reveal delay-2 relative">
+              <div class="absolute -inset-4 rounded-[2rem] border border-[#8ee1d3]/20" aria-hidden="true"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80" 
+                alt="Sala de resonancia magnética en el centro médico" 
+                class="relative min-h-[370px] w-full rounded-2xl object-cover shadow-2xl"
+                width="800" height="600"
+                loading="lazy"
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- Pacientes / FAQ -->
+        <section id="pacientes" class="bg-[#eef8f7] px-6 py-24" aria-labelledby="patient-title">
+          <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <div class="reveal">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Información al paciente</p>
+              <h2 id="patient-title" class="mt-4 max-w-lg text-3xl font-bold leading-tight text-ink md:text-4xl">
+                Tu tranquilidad es parte de nuestro tratamiento
+              </h2>
+              <p class="mt-5 text-lg leading-relaxed text-slate-600">
+                Resolvemos tus dudas sobre procesos de agendamiento, preparación para estudios y cobertura de seguros.
+              </p>
+              <article class="mt-8 rounded-2xl border border-line bg-white p-7 shadow-sm">
+                <h3 class="font-bold text-ink">Cobertura y aseguradoras</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">Trabajamos con las principales aseguradoras nacionales e internacionales. Nuestro equipo de gestión tramita autorizaciones previas sin costo adicional.</p>
+              </article>
+            </div>
+
+            <div class="reveal delay-1">
+              <h3 class="font-bold text-ink">Preguntas frecuentes</h3>
+              <div class="mt-5 space-y-3">
+                
+                <details class="faq-item">
+                  <summary class="focus-ring rounded-2xl">
+                    <span>¿Cómo puedo agendar una cita especializada?</span>
+                  </summary>
+                  <div class="faq-content">
+                    Puedes agendar a través de nuestro formulario web, llamando a nuestra central telefónica o vía WhatsApp. Las citas de primera vez incluyen una evaluación de 45 minutos.
+                  </div>
+                </details>
+
+                <details class="faq-item">
+                  <summary class="focus-ring rounded-2xl">
+                    <span>¿Qué documentación debo llevar a mi primera consulta?</span>
+                  </summary>
+                  <div class="faq-content">
+                    Trae tu documento de identidad, orden médica si la tienes, estudios previos relacionados (laboratorio, imagen) y tarjeta de seguro. Si no tienes orden, nuestros médicos pueden evaluarte igualmente.
+                  </div>
+                </details>
+
+                <details class="faq-item">
+                  <summary class="focus-ring rounded-2xl">
+                    <span>¿El centro cuenta con servicio de urgencias?</span>
+                  </summary>
+                  <div class="faq-content">
+                    Sí, contamos con unidad de urgencias las 24 horas con médicos de guardia en cardiología, traumatología y medicina interna. Para emergencias vitales, activamos protocolo de respuesta inmediata.
+                  </div>
+                </details>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="mx-auto max-w-7xl px-6 py-24" aria-labelledby="contact-title">
+          <div class="grid overflow-hidden rounded-[1.5rem] border border-line bg-white shadow-xl shadow-ink/5 lg:grid-cols-[1.05fr_0.95fr]">
+            
+            <!-- Formulario -->
+            <div class="p-7 sm:p-11">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Contacto</p>
+              <h2 id="contact-title" class="mt-4 text-3xl font-bold text-ink">Agenda tu cita</h2>
+              <p class="mt-4 max-w-xl leading-relaxed text-slate-600">
+                Completa el formulario y nuestro equipo de coordinación se contactará contigo en menos de 24 horas para confirmar tu horario.
+              </p>
+              
+              <form id="appointment-form" class="mt-8 grid gap-4" novalidate>
+                <div>
+                  <label for="nombre" class="mb-2 block text-sm font-semibold text-ink">Nombre completo</label>
+                  <input id="nombre" name="nombre" type="text" required autocomplete="name"
+                    class="focus-ring w-full rounded-xl border border-[#bcd7d4] px-4 py-3 outline-none transition focus:border-mint"
+                    placeholder="Ej: María González">
+                </div>
+                
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="correo" class="mb-2 block text-sm font-semibold text-ink">Correo electrónico</label>
+                    <input id="correo" name="correo" type="email" required autocomplete="email"
+                      class="focus-ring w-full rounded-xl border border-[#bcd7d4] px-4 py-3 outline-none transition focus:border-mint"
+                      placeholder="maria@email.com">
+                  </div>
+                  <div>
+                    <label for="telefono" class="mb-2 block text-sm font-semibold text-ink">Teléfono</label>
+                    <input id="telefono" name="telefono" type="tel" required autocomplete="tel"
+                      class="focus-ring w-full rounded-xl border border-[#bcd7d4] px-4 py-3 outline-none transition focus:border-mint"
+                      placeholder="+52 55 1234 5678">
+                  </div>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="especialidad" class="mb-2 block text-sm font-semibold text-ink">Especialidad</label>
+                    <select id="especialidad" name="especialidad" required
+                      class="focus-ring w-full rounded-xl border border-[#bcd7d4] bg-white px-4 py-3 outline-none transition focus:border-mint">
+                      <option value="" disabled selected>Seleccione un área</option>
+                      <option value="cardiologia">Cardiología</option>
+                      <option value="neurologia">Neurología</option>
+                      <option value="oncologia">Oncología</option>
+                      <option value="pediatria">Pediatría</option>
+                      <option value="preventiva">Medicina preventiva</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="fecha_preferida" class="mb-2 block text-sm font-semibold text-ink">Fecha preferida</label>
+                    <input id="fecha_preferida" name="fecha_preferida" type="date" required
+                      class="focus-ring w-full rounded-xl border border-[#bcd7d4] px-4 py-3 outline-none transition focus:border-mint">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="mensaje" class="mb-2 block text-sm font-semibold text-ink">Mensaje o síntomas (opcional)</label>
+                  <textarea id="mensaje" name="mensaje" rows="3"
+                    class="focus-ring w-full resize-none rounded-xl border border-[#bcd7d4] px-4 py-3 outline-none transition focus:border-mint"
+                    placeholder="Describe brevemente el motivo de tu consulta..."></textarea>
+                </div>
+
+                <button id="submit-appointment" type="submit"
+                  class="focus-ring mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-mint px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-mint/20 hover:bg-[#1a9e87] transition-colors disabled:opacity-60 disabled:cursor-wait">
+                  <i data-lucide="send" width="17" aria-hidden="true"></i>
+                  Enviar solicitud
+                </button>
+
+                <p id="form-status" class="hidden text-sm font-semibold" aria-live="polite" role="status"></p>
+              </form>
+            </div>
+
+            <!-- Panel de info -->
+            <aside class="relative overflow-hidden bg-ink p-7 text-white sm:p-11">
+              <div class="absolute -right-14 -top-14 h-48 w-48 rounded-full border border-white/15" aria-hidden="true"></div>
+              <div class="relative">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-[#8ee1d3]">Estamos para ti</p>
+                <h3 class="mt-4 text-2xl font-bold">Información de contacto</h3>
+                
+                <div class="mt-9 space-y-7">
+                  <div class="flex gap-4">
+                    <i data-lucide="phone-call" class="shrink-0 text-[#8ee1d3]" aria-hidden="true"></i>
+                    <div class="text-sm leading-relaxed">
+                      <p class="font-semibold">Central telefónica</p>
+                      <p class="text-slate-200">+593 99 012 3456</p>
+                      <p class="text-slate-300 text-xs mt-1">Urgencias 24h: 593 4 200 1234</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-4">
+                    <i data-lucide="clock-3" class="shrink-0 text-[#8ee1d3]" aria-hidden="true"></i>
+                    <div class="text-sm leading-relaxed">
+                      <p class="font-semibold">Horario de atención</p>
+                      <p class="text-slate-200">Lunes a Viernes: 07:00 - 21:00</p>
+                      <p class="text-slate-200">Sábados: 08:00 - 14:00</p>
+                    </div>
+                  </div>
+                </div>
+
+                <a href="https://maps.app.goo.gl/DSQceVwSPfn1XNJj6" target="_blank" rel="noopener noreferrer"
+                  class="focus-ring map-pattern mt-10 flex min-h-44 items-center justify-center rounded-2xl border border-white/25 p-5 text-center no-underline transition hover:-translate-y-1 hover:shadow-xl">
+                  <span class="rounded-xl bg-white px-5 py-4 text-ink shadow-lg">
+                    <span class="relative mx-auto mb-2 flex w-fit">
+                      <i data-lucide="map-pin" class="text-mint" aria-hidden="true"></i>
+                      <span class="absolute inset-0 rounded-full bg-mint/30 animate-pulse" aria-hidden="true"></span>
+                    </span>
+                    <span class="block text-xs font-bold">Centro Medico</span>
+                    <span class="mt-1 block text-xs text-slate-600">Pdte. José Luis Tamayo Terán</span>
+                    <span class="mt-2 block text-[10px] font-bold text-mint uppercase tracking-wider">Ver en Google Maps →</span>
+                  </span>
+                </a>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <!-- View: Conocimiento (Library) -->
+      <section id="conocimiento" class="bg-paper px-6 py-16" aria-labelledby="library-title">
+        <div class="mx-auto max-w-7xl">
+          <a href="#inicio" class="focus-ring inline-flex items-center gap-2 rounded-full border border-line bg-white px-5 py-3 text-sm font-bold text-ink hover:bg-slate-50 transition-colors">
+            <i data-lucide="arrow-left" width="17" aria-hidden="true"></i>
+            Volver al inicio
+          </a>
+
+          <div class="mt-14 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div class="reveal visible">
+              <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Biblioteca médica</p>
+              <h2 id="library-title" class="mt-4 text-3xl font-bold leading-tight text-ink md:text-4xl">
+                Conocimiento clínico basado en evidencia
+              </h2>
+              <p class="mt-5 text-lg leading-relaxed text-slate-600">
+                Compartimos las publicaciones y revisiones sistemáticas que sustentan nuestros protocolos de tratamiento.
+              </p>
+              <a href="#inicio" class="focus-ring mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white hover:bg-ink-2 transition-colors">
+                <i data-lucide="house" width="17" aria-hidden="true"></i>
+                Ir al inicio
+              </a>
+            </div>
+
+            <div class="grid gap-5">
+              <article class="hover-card article-card rounded-2xl border border-line bg-white p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Revisión sistemática</p>
+                <h3 class="mt-4 text-xl font-bold leading-snug text-ink">
+                  Eficacia de los inhibidores de SGLT2 en insuficiencia cardíaca
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                  Meta-análisis reciente que demuestra la reducción del 25% en hospitalización por insuficiencia cardíaca en pacientes con y sin diabetes tipo 2.
+                </p>
+                <a href="https://doi.org/10.1016/S0140-6736(22)01832-7" target="_blank" rel="noopener noreferrer"
+                  class="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-bold text-mint hover:text-ink transition-colors">
+                  <i data-lucide="external-link" width="15" aria-hidden="true"></i>
+                  Leer publicación en The Lancet
+                </a>
+              </article>
+
+              <article class="hover-card article-card rounded-2xl border border-line bg-white p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Ensayo clínico</p>
+                <h3 class="mt-4 text-xl font-bold leading-snug text-ink">
+                  Nuevos anticoagulantes orales en fibrilación auricular
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                  Estudio de fase III que compara la seguridad hemorrágica de apixaban versus warfarina en población latinoamericana.
+                </p>
+                <a href="https://doi.org/10.1056/NEJMoa2202825" target="_blank" rel="noopener noreferrer"
+                  class="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-bold text-mint hover:text-ink transition-colors">
+                  <i data-lucide="external-link" width="15" aria-hidden="true"></i>
+                  Leer en New England Journal of Medicine
+                </a>
+              </article>
+
+              <article class="hover-card article-card rounded-2xl border border-line bg-white p-7">
+                <p class="eyebrow text-xs font-bold uppercase tracking-[0.18em] text-mint">Genómica</p>
+                <h3 class="mt-4 text-xl font-bold leading-snug text-ink">
+                  Secuenciación del genoma del cáncer de pulmón no microcítico
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                  Análisis multiómico que identifica nuevas dianas terapéuticas en pacientes con mutaciones KRAS G12C y resistencia a terapias de primera línea.
+                </p>
+                <a href="https://doi.org/10.1038/s41586-021-03518-5" target="_blank" rel="noopener noreferrer"
+                  class="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-bold text-mint hover:text-ink transition-colors">
+                  <i data-lucide="external-link" width="15" aria-hidden="true"></i>
+                  Leer en Nature
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-ink px-6 py-9 text-white">
+      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
+        <p class="text-sm text-slate-300">
+          © <span id="year"></span> Centro Integral de Investigación Médica. Todos los derechos reservados.
+        </p>
+        <a href="#inicio" class="focus-ring inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-bold text-white hover:bg-white/10 transition-colors">
+          Volver al inicio
+        </a>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button type="button" id="back-top" aria-label="Volver al inicio" 
+      class="back-top focus-ring fixed bottom-6 right-6 z-40 rounded-full bg-mint p-3.5 text-white shadow-xl shadow-ink/20 hover:bg-[#1a9e87] transition-colors">
+      <i data-lucide="arrow-up" width="20" aria-hidden="true"></i>
+    </button>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Inicializar iconos
+      if (window.lucide) lucide.createIcons();
+
+      // Año dinámico en footer
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      // Elementos del DOM
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const backTop = document.getElementById('back-top');
+      const form = document.getElementById('appointment-form');
+      const statusEl = document.getElementById('form-status');
+      const submitBtn = document.getElementById('submit-appointment');
+
+      // Menú móvil
+      function toggleMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        menuToggle.setAttribute('aria-expanded', String(isHidden));
+        menuToggle.setAttribute('aria-label', isHidden ? 'Cerrar menú' : 'Abrir menú de navegación');
+      }
+
+      if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+      }
+
+      // Cerrar menú al hacer click en un enlace (mobile)
+      mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Filtros de especialidades (delegación de eventos)
+      const filterContainer = document.querySelector('[role="group"][aria-label="Filtrar especialidades"]');
+      if (filterContainer) {
+        filterContainer.addEventListener('click', (e) => {
+          const btn = e.target.closest('.filter-btn');
+          if (!btn) return;
+
+          // Actualizar botones
+          filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          // Filtrar cards
+          const filter = btn.dataset.filter;
+          document.querySelectorAll('#specialties-grid > article').forEach(card => {
+            const shouldShow = filter === 'all' || card.dataset.category === filter;
+            card.style.display = shouldShow ? '' : 'none';
+            // Reset animación para que aparezcan con efecto
+            if (shouldShow) {
+              card.classList.remove('visible');
+              void card.offsetWidth; // trigger reflow
+              card.classList.add('visible');
+            }
+          });
+        });
+      }
+
+      // IntersectionObserver para animaciones reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Back to top
+      let scrollTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(() => {
+            backTop?.classList.toggle('show', window.scrollY > 500);
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+
+      backTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Manejo del formulario (simulado, sin dependencias externas)
+      if (form) {
+        // Establecer fecha mínima (hoy)
+        const dateInput = document.getElementById('fecha_preferida');
+        if (dateInput) {
+          const today = new Date().toISOString().split('T')[0];
+          dateInput.setAttribute('min', today);
+        }
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+
+          // Estado de carga
+          submitBtn.disabled = true;
+          submitBtn.classList.add('opacity-60', 'cursor-wait');
+          statusEl.textContent = 'Enviando solicitud…';
+          statusEl.className = 'text-sm font-semibold text-mint mt-2';
+          statusEl.classList.remove('hidden');
+
+          // Simular envío asíncrono (reemplazar con fetch real)
+          try {
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Éxito
+            form.reset();
+            statusEl.textContent = 'Solicitud recibida. Nuestro equipo se comunicará para confirmar su cita.';
+            statusEl.className = 'text-sm font-semibold text-mint mt-2';
+            
+            // En producción, usar:
+            // const response = await fetch('/api/appointments', { method: 'POST', body: new FormData(form) });
+            
+          } catch (error) {
+            statusEl.textContent = 'No pudimos enviar la solicitud. Revise sus datos e inténtelo nuevamente.';
+            statusEl.className = 'text-sm font-semibold text-red-600 mt-2';
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-60', 'cursor-wait');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
